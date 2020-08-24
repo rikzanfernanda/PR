@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class list_model extends CI_Model
+class List_model extends CI_Model
 {
    public function read($id_lists = false, $id_guru = false)
    {

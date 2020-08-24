@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class task_model extends CI_Model
+class Task_model extends CI_Model
 {
    public function read($id)
    {

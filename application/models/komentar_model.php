@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class komentar_model extends CI_Model
+class Komentar_model extends CI_Model
 {
    public function read($id_lists)
    {

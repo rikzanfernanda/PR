@@ -66,6 +66,7 @@
             <div class="form-group">
                <label for="token">Token</label>
                <input type="text" class="form-control" id="token" placeholder="isi jika anda sebagai murid" name="token">
+               <small>Token dari guru Anda</small>
             </div>
             <input type="submit" value="Register" name="submit" class="btn btn-primary">
             <?php echo form_close(); ?>
