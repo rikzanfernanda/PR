@@ -10,7 +10,7 @@ class User_model extends CI_Model
          $data = [
             'username' => $this->input->post('username'),
             'email' => $this->input->post('email'),
-            'password' => $this->input->post('password2'),
+            'password' => md5($this->input->post('password2')),
             'token' => $token,
          ];
          return $this->db->insert('guru', $data);
@@ -22,7 +22,7 @@ class User_model extends CI_Model
             $data = [
                'username' => $this->input->post('username'),
                'email' => $this->input->post('email'),
-               'password' => $this->input->post('password2'),
+               'password' => md5($this->input->post('password2')),
                'id_guru' => $result['id_guru'],
             ];
             return $this->db->insert('murid', $data);
@@ -36,7 +36,7 @@ class User_model extends CI_Model
    {
       $data = [
          'username' => $this->input->post('username'),
-         'password' => $this->input->post('password')
+         'password' => md5($this->input->post('password'))
       ];
       $guru = $this->db->get_where('guru', $data);
       $murid = $this->db->get_where('murid', $data);
@@ -64,7 +64,7 @@ class User_model extends CI_Model
       $data = [
          'username' => $this->input->post('username'),
          'email' => $this->input->post('email'),
-         'password' => $this->input->post('password'),
+         'password' => md5($this->input->post('password')),
       ];
       if ($status == 'guru') {
          $this->db->where('id_guru', $id);

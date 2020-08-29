@@ -15,16 +15,14 @@ class User extends CI_Controller
       } else {
          $token = bin2hex(random_bytes(5));
          $cek = $this->user_model->register($token);
-         if ($cek){
+         if ($cek) {
             $this->session->set_flashdata('register', 'Register berhasil, silakan login');
             redirect();
-         }else{
+         } else {
             $this->session->set_flashdata('gagal_register', 'Maaf, Token Anda salah');
             redirect('register');
          }
-
       }
-      
    }
 
    public function login()
