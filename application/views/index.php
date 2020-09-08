@@ -1,6 +1,6 @@
 <div class="row">
-   <div class="col-md-3">
-      <div class="bg-light log">
+   <div class="col-lg-3 col-md-3 col-sm-3 p-0">
+      <div class="bg-white log shadow-sm">
          <?php if (!isset($this->session->userdata['status'])) : ?>
             <?php echo form_open('login'); ?>
             <div class="form-group">
@@ -76,7 +76,7 @@
 
       <?php if (isset($this->session->userdata['status'])) : ?>
          <?php if ($this->session->userdata['status'] == 'murid') : ?>
-            <div class="bg-light mt-3">
+            <div class="bg-white shadow-sm mt-3">
                <table>
                   <tbody>
                      <tr>
@@ -92,7 +92,7 @@
             </div>
          <?php endif; ?>
          <!-- daftar murid -->
-         <div class="card mt-3">
+         <div class="card mt-3 shadow-sm">
             <div class="card-header">
                Daftar murid
                <div class="float-right">
@@ -114,7 +114,7 @@
       <?php endif; ?>
    </div>
 
-   <div class="col-md-9">
+   <div class="col-lg-9 col-md-9 col-sm-9">
       <?php if (!isset($this->session->userdata['status'])) : ?>
          <h1>Selamat datang di PR</h1>
          <p>PR ini adalah sebuah web yang akan membantu Anda dalam melaksanakan
@@ -125,17 +125,18 @@
             Fitur-fitur yang ada didalam PR :
             <ol>
                <li class="mt-3">List</li>
-               Lists atau semacam mata pelajaran yang didalamnya terdapat tugas-tugas.
-               <img src="./assets/images/list.jpg" class="img-fluid">
+               Lists atau semacam mata pelajaran yang didalamnya terdapat tugas-tugas. <br>
+               <img src="./assets/images/f-1.png" class="img-fluid">
                <li class="mt-3">Tugas</li>
                Guru membuat tugas untuk murid dan murid mengumpulkan tugas kepada guru, dan guru dapat memberi nilai terhadap tugas yang dikumpulkan oleh murid.
-               <img src="./assets/images/tugas.jpg" class="img-fluid">
+               <img src="./assets/images/f-2.png" class="img-fluid">
+               <img src="./assets/images/f-3.png" class="img-fluid">
                <li class="mt-3">Daftar murid</li>
-               Guru dan murid bisa melihat siapa saja murid yang diajar oleh guru tersebut.
-               <img src="./assets/images/daftar_murid.jpg" class="img-fluid">
+               Guru dan murid bisa melihat siapa saja murid yang diajar oleh guru tersebut. <br>
+               <img src="./assets/images/f-4.png" class="img-fluid">
                <li class="mt-3">Komentar</li>
-               Fitur untuk berinteraksi antara guru dan murid atau sesama murid.
-               <img src="./assets/images/komentar.jpg" class="img-fluid">
+               Fitur untuk berinteraksi antara guru dan murid atau sesama murid. <br>
+               <img src="./assets/images/f-5.png" class="img-fluid">
             </ol>
          </div>
          Selamat mencoba :)
@@ -180,21 +181,29 @@
             </div>
          </div>
 
-         <div class="row">
+         <div class="row p-0">
             <?php foreach ($lists as $list) : ?>
                <div class="col-lg-3 col-md-6 list">
-                  <div class="card mb-3 lists border">
+                  <div class="card mb-3 lists shadow-sm">
                      <div class="card-body">
                         <h5 class="card-title"><?php echo $list['list_name']; ?></h5>
                         <small class="card-subtitle mb-2 text-muted">dibuat pada : <?php echo $list['create_date']; ?></small>
                         <div class="teks">
                            <p class="card-text"><?php echo word_limiter($list['list_body'], 10); ?></p>
                         </div>
-                        <a href="<?php echo base_url('viewList/' . $list['id_lists']); ?>" class="card-link">lihat list</a>
-                        <?php if ($this->session->userdata['status'] == 'guru') : ?>
-                           <a href="" class="card-link" data-toggle="modal" data-target="#<?php echo $list['id_lists'] ?>">edit</a>
-                           <a href="<?php echo base_url('deleteList/' . $list['id_lists']); ?>" class="card-link" onclick="return confirm('Jika list dihapus maka semua data didalamnya juga terhapus');">hapus</a>
-                        <?php endif; ?>
+
+                        <div class="btn-group">
+                           <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Tindakan
+                           </button>
+                           <div class="dropdown-menu">
+                              <a href="<?php echo base_url('viewList/' . $list['id_lists']); ?>" class="dropdown-item">lihat list</a>
+                              <?php if ($this->session->userdata['status'] == 'guru') : ?>
+                                 <a href="" class="dropdown-item" data-toggle="modal" data-target="#<?php echo $list['id_lists'] ?>">edit</a>
+                                 <a href="<?php echo base_url('deleteList/' . $list['id_lists']); ?>" class="dropdown-item" onclick="return confirm('Jika list dihapus maka semua data didalamnya juga terhapus');">hapus</a>
+                              <?php endif; ?>
+                           </div>
+                        </div>
                      </div>
                   </div>
                </div>

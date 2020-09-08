@@ -1,5 +1,5 @@
 <div class="row">
-   <div class="col-md-8">
+   <div class="col-md-8 col-sm-8 bg-white shadow-sm">
       <!-- list review -->
       <div class="text-center">
          <h1><?= $lists['list_name'] ?></h1>
@@ -86,13 +86,14 @@
                </div>
 
                <!-- hasil tugas untuk guru-->
-               <br>
-               <div class="collapse" id="tasks<?= $task['id_tasks']; ?>">
+               <?php if ($this->session->userdata['status'] == 'guru') : ?>
+                  <br>
+
                   <table class="table table-bordered table-hover">
                      <thead>
                         <tr>
                            <th>No</th>
-                           <th>Tugas yang telah dikumpulkan</th>
+                           <th>Tugas Terkumpul</th>
                            <th>Tindakan</th>
                         </tr>
                      </thead>
@@ -110,49 +111,50 @@
                                  </td>
                                  <td>
                                     <div class="text-center">
-                                       <a href="../assets/images/<?= $tgs['file']; ?>" class="btn btn-outline-info btn-kecil" target="_blank">lihat</a>
+                                       <a href="../assets/images/<?= $tgs['file']; ?>" class="btn btn-info btn-kecil" target="_blank">lihat</a>
                                     </div>
                                     <div class="text-center">
                                        <!-- tombol beri nilai -->
-                                       <a href="" data-toggle="modal" data-target="#tugas<?= $tgs['id_tugas']; ?>" class="btn btn-outline-secondary btn-kecil">
+                                       <a href="" data-toggle="modal" data-target="#tugas<?= $tgs['id_tugas']; ?>" class="btn btn-secondary btn-kecil">
                                           beri nilai
                                        </a>
-                                       <!-- Modal beri nilai-->
-                                       <div class="modal fade" id="tugas<?= $tgs['id_tugas']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                          <div class="modal-dialog modal-dialog-centered" role="document">
-                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                   <h5 class="modal-title" id="exampleModalLongTitle"><?= $tgs['nama_tugas']; ?></h5>
-                                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                      <span aria-hidden="true">&times;</span>
-                                                   </button>
-                                                </div>
-                                                <form action="<?= base_url('nilaiTugas/' . $id_lists); ?>" method="post">
-                                                   <div class="modal-body">
-                                                      <input type="text" name="id_tugas" value="<?= $tgs['id_tugas']; ?>" style="display: none;">
-                                                      <div class="form-group">
-                                                         <label>Nilai</label>
-                                                         <input type="text" name="nilai" class="form-control" value="<?= $tgs['nilai']; ?>">
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label>Note</label>
-                                                         <textarea name="note" class="form-control"><?= $tgs['note']; ?></textarea>
-                                                      </div>
-                                                   </div>
-                                                   <div class="modal-footer">
-                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                      <input type="submit" value="kirim" class="btn btn-primary">
-                                                   </div>
-                                                </form>
+                                    </div>
+                                    <!-- Modal beri nilai-->
+                                    <div class="modal fade" id="tugas<?= $tgs['id_tugas']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                       <div class="modal-dialog modal-dialog-centered" role="document">
+                                          <div class="modal-content">
+                                             <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle"><?= $tgs['nama_tugas']; ?></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                   <span aria-hidden="true">&times;</span>
+                                                </button>
                                              </div>
+                                             <form action="<?= base_url('nilaiTugas/' . $id_lists); ?>" method="post">
+                                                <div class="modal-body">
+                                                   <input type="text" name="id_tugas" value="<?= $tgs['id_tugas']; ?>" style="display: none;">
+                                                   <div class="form-group">
+                                                      <label>Nilai</label>
+                                                      <input type="text" name="nilai" class="form-control" value="<?= $tgs['nilai']; ?>">
+                                                   </div>
+                                                   <div class="form-group">
+                                                      <label>Note</label>
+                                                      <textarea name="note" class="form-control"><?= $tgs['note']; ?></textarea>
+                                                   </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                   <input type="submit" value="kirim" class="btn btn-primary">
+                                                </div>
+                                             </form>
                                           </div>
                                        </div>
                                     </div>
+
                                     <div class="text-center">
                                        <!-- tombol hapus -->
                                        <form action="<?= base_url('deleteTugas/' . $id_lists); ?>" method="POST">
                                           <input type="text" name="id_tugas" value="<?= $tgs['id_tugas']; ?>" style="display: none;">
-                                          <input type="submit" value="hapus" name="hapus" class="btn btn-outline-danger btn-kecil">
+                                          <input type="submit" value="hapus" name="hapus" class="btn btn-danger btn-kecil">
                                        </form>
                                     </div>
                                  </td>
@@ -163,17 +165,17 @@
                         <?php endforeach; ?>
                      </tbody>
                   </table>
-               </div>
+               <?php endif; ?>
                <!-- end hasil tugas -->
 
                <!-- hasil tugas untuk murid -->
                <?php if ($this->session->userdata['status'] == 'murid') : ?>
                   <i><small>File tugas Anda :</small></i>
-                  <div class="row">
+                  <div class="row p-0">
                      <?php foreach ($tugas as $tgs) : ?>
                         <?php if ($tgs['id_tasks'] == $task['id_tasks'] && $tgs['id_murid'] == $this->session->userdata['id_murid']) : ?>
                            <div class="col-md-6 col-lg-3 kotak">
-                              <div class="tugas border">
+                              <div class="tugas shadow-sm">
                                  <b><?php echo $tgs['nama_tugas']; ?></b><br>
                                  <small><small>Tgl input : <?= $tgs['kirim_date']; ?></small></small><br>
                                  <small>Nilai : <?php echo $tgs['nilai']; ?><br>Note : <?php echo $tgs['note']; ?></small><br>
@@ -240,9 +242,6 @@
                   <input type="submit" value="Hapus" name="submit" class="btn btn-danger button" onclick="return confirm('Apakah Anda yakin?');">
                   <?php echo form_close(); ?>
 
-                  <a class="btn btn-info button" data-toggle="collapse" href="#tasks<?= $task['id_tasks']; ?>" role="button" aria-expanded="false" aria-controls="collapseExample">
-                     Tugas
-                  </a>
                <?php endif; ?>
 
                <?php if ($this->session->userdata['status'] == 'murid') : ?>
@@ -291,8 +290,8 @@
    </div>
 
    <!-- komentar -->
-   <div class="col-md-4">
-      <div class="card">
+   <div class="col-md-4 col-sm-4">
+      <div class="card shadow-sm">
          <div class="card-header">
             Komentar
             <?php if ($this->session->userdata['status'] == 'guru') : ?>
